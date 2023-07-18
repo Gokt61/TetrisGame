@@ -10,6 +10,11 @@ public class GameManager : MonoBehaviour
 
     private ShapeManager aktifSekil;
 
+    [Header("SAYAÇLAR")]
+    [Range(0.01f,2)]
+    [SerializeField] private float spawnSuresi = 0.5f;
+    float spawnSayac;
+
     private void Start()
     {
         spawner = GameObject.FindObjectOfType<SpawnerManager>();
@@ -32,9 +37,14 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (aktifSekil)
+        if (Time.time > spawnSayac)
         {
-            aktifSekil.AssagiHareketFNC();
+            spawnSayac = Time.time + spawnSuresi;
+
+            if (aktifSekil)
+            {
+                aktifSekil.AssagiHareketFNC();
+            }
         }
     }
     Vector2 VectoruIntYapFNC(Vector2 vector)
