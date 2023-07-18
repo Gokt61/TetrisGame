@@ -24,6 +24,7 @@ public class BoardManager : MonoBehaviour
                 {
                     Transform tile = Instantiate(tilePrefab, new Vector3(x, y, 0), Quaternion.identity);
                     tile.name = "x " + x.ToString() + " ," + y.ToString();
+                    tile.parent = this.transform;
                 }
             }
         }
