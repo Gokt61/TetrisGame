@@ -6,28 +6,23 @@ public class ShapeManager : MonoBehaviour
 {
     [SerializeField] private bool donebilirmi = true;
 
-    private void Start()
-    {
-        //InvokeRepeating("AssagiHareketFNC",0f,0.25f);
-        StartCoroutine(HareketRoutine());
-    }
 
     public void SolaHareketetFNC()
     {
-        transform.Translate(Vector3.left);
+        transform.Translate(Vector3.left, Space.World);
     }
     public void SagaHareketetFNC()
     {
-        transform.Translate(Vector3.right);
+        transform.Translate(Vector3.right, Space.World);
     }
 
     public void AssagiHareketFNC()
     {
-        transform.Translate(Vector3.down);
+        transform.Translate(Vector3.down, Space.World);
     }
     public void YukariHareketFNC()
     {
-        transform.Translate(Vector3.up);
+        transform.Translate(Vector3.up, Space.World);
     }
 
     public void SagaDonFNC()
