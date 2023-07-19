@@ -44,6 +44,16 @@ public class GameManager : MonoBehaviour
             if (aktifSekil)
             {
                 aktifSekil.AssagiHareketFNC();
+
+                if (!board.GecerliPozisyondami(aktifSekil))
+                {
+                    aktifSekil.YukariHareketFNC();
+
+                    if (spawner)
+                    {
+                        aktifSekil = spawner.SekilOlsuturFNC();
+                    }
+                }
             }
         }
     }

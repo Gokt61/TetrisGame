@@ -14,6 +14,25 @@ public class BoardManager : MonoBehaviour
         BosKareleriOlusturFNC();
     }
 
+    bool BoardIcindemi(int x,int y)
+    {
+        return (x >= 0 && x < genislik && y >= 0);
+    }
+
+    public bool GecerliPozisyondami(ShapeManager shape)
+    {
+        foreach (Transform child in shape.transform)
+        {
+            Vector2 pos = VectoruIntYapFNC(child.position);
+
+            if (!BoardIcindemi((int)pos.x,(int)pos.y))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
     void BosKareleriOlusturFNC()
     {
         if (tilePrefab != null)
@@ -32,5 +51,10 @@ public class BoardManager : MonoBehaviour
         {
             Debug.Log("Tile Prefab eklenmedi");
         }
+    }
+
+    Vector2 VectoruIntYapFNC(Vector2 vector)
+    {
+        return new Vector2(Mathf.Round(vector.x), Mathf.Round(vector.y));
     }
 }
