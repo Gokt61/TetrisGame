@@ -49,6 +49,8 @@ public class GameManager : MonoBehaviour
                 {
                     aktifSekil.YukariHareketFNC();
 
+                    board.SekliIzgaraIcineAlFNC(aktifSekil);
+
                     if (spawner)
                     {
                         aktifSekil = spawner.SekilOlsuturFNC();

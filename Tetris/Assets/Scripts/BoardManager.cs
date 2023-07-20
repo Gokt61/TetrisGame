@@ -9,6 +9,13 @@ public class BoardManager : MonoBehaviour
     public int yukseklik = 22;
     public int genislik = 10;
 
+    private Transform[,] izgara;
+
+    private void Awake()
+    {
+        izgara = new Transform[genislik, yukseklik];
+    }
+
     private void Start()
     {
         BosKareleriOlusturFNC();
@@ -17,6 +24,11 @@ public class BoardManager : MonoBehaviour
     bool BoardIcindemi(int x,int y)
     {
         return (x >= 0 && x < genislik && y >= 0);
+    }
+
+    bool KareDolumu(int x, int y, ShapeManager shape)
+    {
+        return (izgara[x,y] != null && izgara[x,y].parent != shape.transform);
     }
 
     public bool GecerliPozisyondami(ShapeManager shape)
@@ -28,6 +40,14 @@ public class BoardManager : MonoBehaviour
             if (!BoardIcindemi((int)pos.x,(int)pos.y))
             {
                 return false;
+            }
+
+            if (pos.y < yukseklik)
+            {
+                if (KareDolumu((int)pos.x, (int)pos.y, shape))
+                {
+                    return false;
+                }
             }
         }
         return true;
@@ -50,6 +70,20 @@ public class BoardManager : MonoBehaviour
         else
         {
             Debug.Log("Tile Prefab eklenmedi");
+        }
+    }
+
+    public void SekliIzgaraIcineAlFNC(ShapeManager shape)
+    {
+        if (shape == null)
+        {
+            return;
+        }
+
+        foreach (Transform child in shape.transform)
+        {
+            Vector2 pos = VectoruIntYapFNC(child.position);
+            izgara[(int)pos.x, (int)pos.y] = child;
         }
     }
 
