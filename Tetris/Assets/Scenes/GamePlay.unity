@@ -401,7 +401,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a8b3bd6cfbc05ee4db79a79d083b1f2a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnSuresi: 0.5
+  asagiInmeSuresi: 0.25
+  sagSolTusaBasmaSuresi: 0.25
 --- !u!4 &1298113483
 Transform:
   m_ObjectHideFlags: 0

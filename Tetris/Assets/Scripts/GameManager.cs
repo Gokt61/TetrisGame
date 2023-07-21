@@ -12,8 +12,12 @@ public class GameManager : MonoBehaviour
 
     [Header("SAYAÇLAR")]
     [Range(0.01f,2)]
-    [SerializeField] private float spawnSuresi = 0.5f;
-    float spawnSayac;
+    [SerializeField] private float asagiInmeSuresi = 0.25f;
+    float asagiInmeSayac;
+    [Range(0.02f, 2)]
+    [SerializeField] float sagSolTusaBasmaSuresi = 0.25f;
+
+    float sagSolTusaBasmaSayac;
 
     private void Start()
     {
@@ -37,9 +41,29 @@ public class GameManager : MonoBehaviour
             return;
         }
 
-        if (Time.time > spawnSayac)
+        GirisKontrolFNC();
+    }
+
+    void GirisKontrolFNC()
+    {
+        if (Input.GetKeyDown("right") || (Input.GetKey("right") && Time.time > sagSolTusaBasmaSayac))
         {
-            spawnSayac = Time.time + spawnSuresi;
+            aktifSekil.SagaHareketetFNC();
+            sagSolTusaBasmaSayac = Time.time + sagSolTusaBasmaSuresi;
+
+            if (board.GecerliPozisyondami(aktifSekil))
+            {
+                print("Saða hareket ediyor.");
+            }
+            else
+            {
+                aktifSekil.SolaHareketetFNC();
+            }
+        }
+
+        if (Time.time > asagiInmeSayac)
+        {
+            asagiInmeSayac = Time.time + asagiInmeSuresi;
 
             if (aktifSekil)
             {
@@ -59,6 +83,7 @@ public class GameManager : MonoBehaviour
             }
         }
     }
+
     Vector2 VectoruIntYapFNC(Vector2 vector)
     {
         return new Vector2(Mathf.Round(vector.x),Mathf.Round(vector.y));
