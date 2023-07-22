@@ -19,6 +19,16 @@ public class GameManager : MonoBehaviour
 
     float sagSolTusaBasmaSayac;
 
+    [Range(0.02f, 2)]
+    [SerializeField] float sagSolDonmeSuresi = 0.25f;
+
+    float sagSolDonmeSayac;
+
+    [Range(0.02f, 2)]
+    [SerializeField] float asagiTusaBasmaSuresi = 0.25f;
+
+    float asagiTusaBasmaSayaci;
+
     private void Start()
     {
         spawner = GameObject.FindObjectOfType<SpawnerManager>();
@@ -36,7 +46,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!board || !spawner)
+        if (!board || !spawner || !aktifSekil)
         {
             return;
         }
@@ -51,19 +61,35 @@ public class GameManager : MonoBehaviour
             aktifSekil.SagaHareketetFNC();
             sagSolTusaBasmaSayac = Time.time + sagSolTusaBasmaSuresi;
 
-            if (board.GecerliPozisyondami(aktifSekil))
-            {
-                print("Saða hareket ediyor.");
-            }
-            else
+            if (!board.GecerliPozisyondami(aktifSekil))
             {
                 aktifSekil.SolaHareketetFNC();
             }
         }
+        else if (Input.GetKeyDown("left") || (Input.GetKey("left") && Time.time > sagSolTusaBasmaSayac))
+        {
+            aktifSekil.SolaHareketetFNC();
+            sagSolTusaBasmaSayac = Time.time + sagSolTusaBasmaSuresi;
 
-        if (Time.time > asagiInmeSayac)
+            if (!board.GecerliPozisyondami(aktifSekil))
+            {
+                aktifSekil.SagaHareketetFNC();
+            }
+        }
+        else if ((Input.GetKeyDown("up") && Time.time > sagSolDonmeSayac))
+        {
+            aktifSekil.SagaDonFNC();
+            sagSolDonmeSayac = Time.time + sagSolDonmeSuresi;
+
+            if (!board.GecerliPozisyondami(aktifSekil))
+            {
+                aktifSekil.SagaHareketetFNC();
+            }
+        }
+        else if (Time.time > asagiInmeSayac|| (Input.GetKey("down") && Time.time > asagiTusaBasmaSayaci))
         {
             asagiInmeSayac = Time.time + asagiInmeSuresi;
+            asagiTusaBasmaSayaci = Time.time + asagiTusaBasmaSuresi;
 
             if (aktifSekil)
             {
@@ -71,16 +97,25 @@ public class GameManager : MonoBehaviour
 
                 if (!board.GecerliPozisyondami(aktifSekil))
                 {
-                    aktifSekil.YukariHareketFNC();
-
-                    board.SekliIzgaraIcineAlFNC(aktifSekil);
-
-                    if (spawner)
-                    {
-                        aktifSekil = spawner.SekilOlsuturFNC();
-                    }
+                    YerlestigiFNC();
                 }
             }
+        }     
+    }
+
+    void YerlestigiFNC()
+    {
+        sagSolTusaBasmaSayac = Time.time;
+        asagiTusaBasmaSayaci = Time.time;
+        sagSolDonmeSayac = Time.time;
+
+        aktifSekil.YukariHareketFNC();
+
+        board.SekliIzgaraIcineAlFNC(aktifSekil);
+
+        if (spawner)
+        {
+            aktifSekil = spawner.SekilOlsuturFNC();
         }
     }
 

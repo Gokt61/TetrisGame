@@ -402,7 +402,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   asagiInmeSuresi: 0.25
-  sagSolTusaBasmaSuresi: 0.25
+  sagSolTusaBasmaSuresi: 0.1
+  sagSolDonmeSuresi: 0.1
+  asagiTusaBasmaSuresi: 0.1
 --- !u!4 &1298113483
 Transform:
   m_ObjectHideFlags: 0
