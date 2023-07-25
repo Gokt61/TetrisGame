@@ -147,6 +147,18 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    public bool DisariTastimiFNC(ShapeManager shape)
+    {
+        foreach (Transform child in shape.transform)
+        {
+            if (child.transform.position.y >= yukseklik -1)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
     Vector2 VectoruIntYapFNC(Vector2 vector)
     {
         return new Vector2(Mathf.Round(vector.x), Mathf.Round(vector.y));

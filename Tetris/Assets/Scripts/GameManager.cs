@@ -29,6 +29,8 @@ public class GameManager : MonoBehaviour
 
     float asagiTusaBasmaSayaci;
 
+    private bool gameOver = false;
+
     private void Start()
     {
         spawner = GameObject.FindObjectOfType<SpawnerManager>();
@@ -46,7 +48,7 @@ public class GameManager : MonoBehaviour
 
     private void Update()
     {
-        if (!board || !spawner || !aktifSekil)
+        if (!board || !spawner || !aktifSekil || gameOver)
         {
             return;
         }
@@ -83,7 +85,7 @@ public class GameManager : MonoBehaviour
 
             if (!board.GecerliPozisyondami(aktifSekil))
             {
-                aktifSekil.SagaHareketetFNC();
+                aktifSekil.SolaDonFNC();
             }
         }
         else if (Time.time > asagiInmeSayac|| (Input.GetKey("down") && Time.time > asagiTusaBasmaSayaci))
@@ -97,7 +99,15 @@ public class GameManager : MonoBehaviour
 
                 if (!board.GecerliPozisyondami(aktifSekil))
                 {
-                    YerlestigiFNC();
+                    if (board.DisariTastimiFNC(aktifSekil))
+                    {
+                        aktifSekil.YukariHareketFNC();
+                        gameOver = true;
+                    }
+                    else
+                    {
+                        YerlestigiFNC();
+                    }
                 }
             }
         }     
