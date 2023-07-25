@@ -7,7 +7,7 @@ public class SpawnerManager : MonoBehaviour
     [SerializeField]private ShapeManager[] tumSekiller;
 
 
-    public ShapeManager SekilOlsuturFNC()
+    public ShapeManager SekilOlusturFNC()
     {
         int randomSekil = Random.Range(0,tumSekiller.Length);
         ShapeManager sekil = Instantiate(tumSekiller[randomSekil], transform.position,Quaternion.identity) as ShapeManager;

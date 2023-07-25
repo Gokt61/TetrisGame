@@ -87,6 +87,66 @@ public class BoardManager : MonoBehaviour
         }
     }
 
+    bool SatirTamamlandimiFNC(int y)
+    {
+        for (int x = 0; x < genislik; ++x)
+        {
+            if (izgara[x,y] == null)
+            {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    void SatiriTemizleFNC(int y)
+    {
+        for (int x = 0; x < genislik; ++x)
+        {
+            if (izgara[x,y] != null)
+            {
+                Destroy(izgara[x, y].gameObject);
+            }
+
+            izgara[x, y] = null;
+        }
+    }
+
+    void BirSatiriAsagiIndirFNC(int y)
+    {
+        for (int x = 0; x < genislik; ++x)
+        {
+            if (izgara[x,y] != null)
+            {
+                izgara[x, y - 1] = izgara[x, y];
+                izgara[x, y] = null;
+                izgara[x, y - 1].position += Vector3.down;
+            }
+        }
+    }
+
+    void TumSatirlariAsagiIndirFNC(int baslangicY)
+    {
+        for (int i = baslangicY; i < yukseklik; ++i)
+        {
+            BirSatiriAsagiIndirFNC(i);
+        }
+    }
+
+    public void TumSatirlariTemizleFNC()
+    {
+        for (int y = 0; y < yukseklik; y++)
+        {
+            if (SatirTamamlandimiFNC(y))
+            {
+                SatiriTemizleFNC(y);
+                TumSatirlariAsagiIndirFNC(y + 1);
+                y--;
+            }
+        }
+    }
+
     Vector2 VectoruIntYapFNC(Vector2 vector)
     {
         return new Vector2(Mathf.Round(vector.x), Mathf.Round(vector.y));

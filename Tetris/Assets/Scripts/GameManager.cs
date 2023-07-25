@@ -38,7 +38,7 @@ public class GameManager : MonoBehaviour
         {
             if (aktifSekil == null)
             {
-                aktifSekil = spawner.SekilOlsuturFNC();
+                aktifSekil = spawner.SekilOlusturFNC();
                 aktifSekil.transform.position = VectoruIntYapFNC(aktifSekil.transform.position);
             }
         }
@@ -115,8 +115,10 @@ public class GameManager : MonoBehaviour
 
         if (spawner)
         {
-            aktifSekil = spawner.SekilOlsuturFNC();
+            aktifSekil = spawner.SekilOlusturFNC();
         }
+
+        board.TumSatirlariTemizleFNC();
     }
 
     Vector2 VectoruIntYapFNC(Vector2 vector)
